@@ -1,0 +1,7 @@
+.concepto li {
+  list-style-type: none !important;
+}
+
+li {
+  list-style-type: square;
+}
