@@ -1,5 +1,9 @@
 # Temas de que hablar en la presentación
 
+Vamos a hablar de microservicios, de lo que suponen, las ventajas y desventajas que poseen, y cómo desplegar de forma segura una arquitectura basada en ellos.
+
+Como en tan poco tiempo no podemos abarcar todos los términos, iremos compartiendo enlaces a blogs y páginas de documentación que complementen todos los contenidos que tratemos.
+
 #### API (Interfaz de Programación de Aplicaciones)
 
 > Conjunto de funciones y/o métodos ofrecidos por una aplicación para que otro software, a modo de capa de abstracción, la utilice. **Poner Twitter como ejemplo.** En los microservicios suele ser concisa y simple; y su código ha de estar bien testeado siempre.
@@ -44,6 +48,10 @@ Por nuestra API viajarán usuarios, contraseñas, claves de sesión, etc. Hay qu
 
 + **Particularidad: al hacer ésto, todos los servicios deben confiar entre sí mutuamente.**
 + **Problema: si en un solo punto del sistema distribuido se compromete esta clave, se estaría viendo comprometido el sistema completo.**
+
+> Una parte de la comunicación debe validar un JWT por su propia lógica programada, nunca por la información contenida en él mismo (en la cabecera, por ejemplo).
+
+[Confusión de algoritmos en JWT](https://www.chosenplaintext.ca/2015/03/31/jwt-algorithm-confusion.html) 
 
 ---
 
