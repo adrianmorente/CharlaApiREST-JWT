@@ -224,6 +224,97 @@
 				</section>
 
 				<section>
+					<h4 class="titulo">Una vez autenticados dentro del sistema...</h4>
+					<h3>Mensajería entre microservicios mediante JWT</h3>
+				</section>
+
+				<section>
+					<h3 class="titulo">JSON Web Tokens</h3>
+					<ul>
+						<li>Header</li>
+						<li>Payload</li>
+						<li>Signature</li>
+					</ul>
+					<p>Base64Url encoded</p>
+					<img src="./img/jwt-example.png" style="width: 80%" />
+				</section>
+
+				<section>
+					<h3 class="titulo">JWT - Header</h3>
+					<ul>
+						<li>Tipo del token</li>
+						<li>Algoritmo de hashing (HMAC SHA256 o RSA)</li>
+						<pre><code data-trim>
+							{
+								"alg": "HS256",
+								"typ": "JWT"
+							}
+						</code></pre>
+					</ul>
+				</section>
+
+				<section>
+					<h3 class="titulo">JWT - Payload</h3>
+					<ul>
+						<li>Demandas predefinidas</li>
+						<ul>
+							<li><b>iss</b> (issuer)</li>
+							<li><b>exp</b> (expiration time)</li>
+							<li><b>sub</b> (subject)</li>
+							<li>Y otras...</li>
+						</ul>
+						<li>Demandas públicas</li>
+						<ul>
+							<li>A elegir por el desarrollador, pero aceptadas por IANA JSON Web Token Registry</li>
+						</ul>
+						<li>Demandas privadas</li>
+						<ul>
+							<li>Por el desarrollador y para sus propios servicios.</li>
+						</ul>
+					</ul>
+				</section>
+
+				<section>
+					<h3 class="titulo">JWT - Payload</h3>
+					<pre><code data-trim>
+						{
+							"sub": "1234567890",
+							"name": "Adrian Morente",
+							"admin": true
+						}
+					</code></pre>
+				</section>
+
+				<section>
+					<h3 class="titulo">JWT - Signature</h3>
+					Depende de las dos anteriores codificadas.
+					<pre><code data-trim>
+						HMACSHA256(
+							base64UrlEncode(header) + "."
+							base64UrlEncode(payload),
+							secret)
+					</code></pre>
+					Verifica la identidad del emisor y la integridad del mensaje.
+				</section>
+
+				<section>
+					<img src="./img/legacy-app-auth-5.png" style="width: 60%" />
+				</section>
+
+				<section>
+					<h3 class="titulo">JSON Web Tokens</h3>
+					<ul>
+						<li>El servidor no guarda ningún estado de ellos</li>
+						<li>Deben cifrarse siempre</li>
+					</ul>
+				</section>
+
+				<section>
+					<h3 class="titulo">JWT - Funcionamiento</h3>
+					<img src="./img/jwt-diagram.png" style="width: 80%" />
+				</section>
+
+				<section>
 					<h3 class="titulo">Otros aspectos a tener en cuenta:</h3>
 					<ul>
 						<li>Restringir los métodos HTTP usados por cada ruta.</li>
@@ -266,6 +357,10 @@
 						</a>
 					</h5>
 					<h4>Caso de éxito sobre microservicios e interacción de estos.</h4>
+				</section>
+
+				<section>
+					<h1>FIN</h1>
 				</section>
 
 			</div>
