@@ -315,6 +315,93 @@
 				</section>
 
 				<section>
+					<h4 class="titulo">Caso real - Solicitud token</h4>
+					<ul>
+						<li>Registro en Auth0,</li>
+						<li>Crear API en Auth0,</li>
+						<li>Crear Test dentro de API,</li>
+						<li><b>Solicitud del token.</b></li>
+					</ul>
+					<pre><code data-trim>
+						curl --request POST \
+							--url https://adrianmorente.eu.auth0.com/oauth/token \
+							--header 'content-type: application/json' \
+							--data '{"client_id": "___ID_DE_CLIENTE___",
+								"client_secret": "___CLAVE_SECRETA_DE_CLIENTE___",
+								"audience": "https://adrianmorente.eu.auth0.com/api/v2/",
+								"grant_type": "client_credentials"}'
+					</code></pre>
+				</section>
+
+				<section>
+					<h4 class="titulo">Caso real - Obtención del token</h4>
+					<img src="./img/solicitud-token-auth0.png" style="width: 60%" />
+					<pre><code data-trim>
+						{
+							"access_token": "PEDAZO_DE_TOKEN_QUE_TE_HAN_MANDAO",
+							"expires_in": 86400,
+							"token_type": "Bearer"
+						}
+					</code></pre>
+				</section>
+
+				<section>
+					<h4 class="titulo">Obtención del token (NodeJS)</h4>
+					<p>Permite automatización (los tokens caducan).</p>
+					<pre><code data-trim>
+						var request = require("request");
+
+						var options = { method: 'POST',
+						  url: 'https://adrianmorente.eu.auth0.com/oauth/token',
+						  headers: { 'content-type': 'application/json' },
+						  body: '{"client_id":"___ID_DE_CLIENTE___",
+								"client_secret":"___CLAVE_SECRETA_DE_CLIENTE___",
+								"audience":"https://adrianmorente.eu.auth0.com/api/v2/",
+								"grant_type":"client_credentials"}' };
+
+						request(options, function (error, response, body) {
+						  if (error) throw new Error(error);
+
+						  console.log(body);
+						});
+					</code></pre>
+				</section>
+
+				<section>
+					<h3>Otra forma: Social connections</h3>
+					<img src="./img/available-logins.png" style="width: 80%" />
+				</section>
+
+				<section>
+					<h5 class="titulo">Respuesta OAuth - Google</h5>
+					<pre><code data-trim>
+					{
+					  "email": "XXXxxxXXXxxx@gmail.com",
+					  "email_verified": true,
+					  "name": "Adrian Morente",
+					  "given_name": "Adrian",
+					  "family_name": "Morente",
+					  "picture": "https://lh4.googleusercontent.com/-5Exxi7Zi9GE/AAAAAAAAAAI/AAAAAAAAADs/AytTBXIaPUQ/photo.jpg",
+					  "locale": "es",
+					  "clientID": "aXdfqQN___ID_CLIENTE___DO21M2",
+					  "updated_at": "2017-11-20T10:17:24.333Z",
+					  "user_id": "google-oauth2|___USER_ID___",
+					  "nickname": "XXXxxxXXXxxx",
+					  "identities": [
+					    {
+					      "provider": "google-oauth2",
+					      "user_id": "___USER_ID___",
+					      "connection": "google-oauth2",
+					      "isSocial": true
+					    }
+					  ],
+					  "created_at": "2017-11-20T10:17:24.333Z",
+					  "sub": "google-oauth2|___USER_ID___"
+					}
+					</code></pre>
+				</section>
+
+				<section>
 					<h3 class="titulo">Otros aspectos a tener en cuenta:</h3>
 					<ul>
 						<li>Restringir los métodos HTTP usados por cada ruta.</li>
