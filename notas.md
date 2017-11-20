@@ -95,6 +95,10 @@ request(options, function (error, response, body) {
 
 [***Librerías en cualquier lenguaje para tratamiento de JWT***](https://jwt.io/#libraries-io)
 
+***¿Pero cómo funcionan?***
+
+Cuando el usuario se autentica correctamente en el servicio con sus credenciales, se le guarda localmente un JSON Web Token (en almacenamiento local o en cookies). Esto difiere de las sesiones en el servidor y las cookies retornadas de los sistemas monolíticos. **El servidor no guarda nada --> stateless**.
+
 ---
 
 ## ID tokens
