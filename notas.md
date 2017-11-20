@@ -20,6 +20,8 @@ Como en tan poco tiempo no podemos abarcar todos los términos, iremos compartie
 
 # Seguridad en APIs REST
 
+Hablaremos de convenciones y estándares que deberían usarse, algunos ejemplos de control de accesos, etc.
+
 **Recomendar Open Web Application Security Project y [su manual](https://www.owasp.org/index.php/REST_Security_Cheat_Sheet)**.
 
 #### HTTPS
@@ -32,7 +34,45 @@ Por nuestra API viajarán usuarios, contraseñas, claves de sesión, etc. Hay qu
 
 > En los sistemas monolíticos vistos con anterioridad, se controla el acceso al inicio (con autenticación y gestión de sesiones); y una vez dentro el usuario navega por todo el sistema. Para un sistema distribuido, esto es más difícil de manejar.
 
-+ El control ha de ser local a cada API, y que en ella se tomen las decisiones  de acceso pertinentes.
++ El control ha de ser local a cada API, y que en ella se tomen las decisiones  de acceso pertinentes. Esto causa mucha latencia.... Solución: Identity Provider + API Gateway.
+
+#### Autenticando con un IdP
+
+[**Autenticando con un IdP**](https://auth0.com/docs/connections/calling-an-external-idp-api)
+
+Usaremos Auth0, por ejemplo.
+
+1. Obtener token que permita conectar con la API de Auth0 durante 24 horas. Ésto se hace a través de la web de Auth0. Lo suyo es automatizar la petición.
+2. Consultar a la API usando el token obtenido previamente. Por ejemplo, esto hace una petición del perfil de un usuario a partir de su ID:
+
+```js
+var request = require("request");
+
+var options = {
+  method: 'GET',
+  url: 'https://adrianmorente.eu.auth0.com/api/v2/ADRIANMORENTE',
+  headers: { authorization: 'Bearer TOKEN_OBTENIDO' }
+};
+
+request(options, function (error, response, body) {
+  if (error) throw new Error(error);
+
+  console.log(body);
+});
+```
+
+3. Extraer el token devuelto por el IdP:
+
+```json
+{
+  "email": "adrian.morente@cor.reo",
+  "name": "Adrian Morente",
+  "picture": "https://avatar/selfie.png",
+  "gender": "male",
+  "user_id": "ADRIANMORENTE",
+  ...
+}
+```
 
 ## JSON Web Tokens
 
@@ -51,7 +91,9 @@ Por nuestra API viajarán usuarios, contraseñas, claves de sesión, etc. Hay qu
 
 > Una parte de la comunicación debe validar un JWT por su propia lógica programada, nunca por la información contenida en él mismo (en la cabecera, por ejemplo).
 
-[Confusión de algoritmos en JWT](https://www.chosenplaintext.ca/2015/03/31/jwt-algorithm-confusion.html) 
+[Confusión de algoritmos en JWT](https://www.chosenplaintext.ca/2015/03/31/jwt-algorithm-confusion.html)
+
+[***Librerías en cualquier lenguaje para tratamiento de JWT***](https://jwt.io/#libraries-io)
 
 ---
 

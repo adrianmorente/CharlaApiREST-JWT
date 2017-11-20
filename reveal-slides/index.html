@@ -32,14 +32,19 @@
 			<div class="slides">
 
 				<section>
-					<h2>Seguridad en microservicios REST</h2>
+					<h2 class="titulo">Seguridad en microservicios REST</h2>
 					<img src="./img/technology-CC-GERD-LEONHARD.jpg" style="width: 40%"/>
 					<p>Adrián Morente Gabaldón</p>
 					<p><i class="fa fa-github-square" aria-hidden="true"></i> github.com/adrianmorente</p>
 				</section>
 
 				<section>
-					<h4>Concepto: Application Programming Interface</h4>
+					<h3 class="titulo">Material:</h3>
+					<p><i class="fa fa-github-square" aria-hidden="true"></i> github.com/adrianmorente/CharlaApiREST-JWT</p>
+				</section>
+
+				<section>
+					<h4 class="titulo">Application Programming Interface</h4>
 					<ul class="concepto">
 						<li><i class="fa fa-question-circle" aria-hidden="true"></i> Ofrecido por una app para que otra la aproveche.</li>
 						<li><i class="fa fa-question-circle" aria-hidden="true"></i> <b>Abstracción de software.</b></li>
@@ -50,12 +55,16 @@
 				</section>
 
 				<section>
-					<h3>Representational State Transfer?</h3>
-
+					<h3 class="titulo">Representational State Transfer?</h3>
+					<ul>
+						<li>Manipulan recursos en línea mediante métodos HTTP.</li>
+						<li>Operaciones de creación, lectura, modificación y borrado (CRUD).</li>
+						<li>Respuestas en XML, HTML o JSON.</li>
+					</ul>
 				</section>
 
 				<section>
-					<h3>1, 2, 3... ¡API REST!</h3>
+					<h3 class="titulo">1, 2, 3... ¡API REST!</h3>
 					<br />
 					<h6>Por ejemplo, con NodeJS & Express</h6>
 					<pre><code data-trim>
@@ -73,7 +82,7 @@
 				</section>
 
 				<section>
-					<h3>1, 2, 3... ¡API REST!</h3>
+					<h3 class="titulo">1, 2, 3... ¡API REST!</h3>
 					<br />
 					<h6>o bien Python & Flask</h6>
 					<pre><code data-trim>
@@ -91,34 +100,140 @@
 				</section>
 
 				<section>
-					<h5>¿Qué es un microservicio?</h5>
+					<h4 class="titulo">¿Qué son los microservicios?</h5>
 					<img src="./img/monolithic-vs-microservices.png" style="width: 80%;"/>
 					<label>
-						<a href="http://syndicode.co/2017/06/29/the-necessity-of-a-microservice-approach/">
+						<a class="minitexto" href="http://syndicode.co/2017/06/29/the-necessity-of-a-microservice-approach/">
 							http://syndicode.co/2017/06/29/the-necessity-of-a-microservice-approach/
 						</a>
 					</label>
 				</section>
 
 				<section>
-					<h5>Otra forma de verlo...</h5>
-					<img src="./img/shit-microservices.jpg" style="width: 80%;"/>
+					<h3 class="titulo">Son <b>servicios muy pequeñitos.</b></h3>
 				</section>
 
 				<section>
-					<h5>
-						Netflix: <a href="https://www.slideshare.net/yunongx/paved-paas-to-microservices">
-							<i>Paved PaaS to Microservices</i>
-						</a>
-					</h5>
+					<img src="./img/microservices-nginx.png" style="width: 55%"/>
+					<p class="minitexto">Imágenes de Chris Richardson para el blog de NGINX.</p>
 				</section>
 
 				<section>
-					<a href="https://www.owasp.org">Open Web Application Security Project</a>
+					<h3 class="titulo">Interacción entre microservicios</h3>
+					<p>Métodos y respuestas HTTP</p>
+					<img src="./img/api-rest-interaction.png" />
 				</section>
 
 				<section>
-					<h4>Para ampliar (microservicios):</h4>
+					<h2 class="titulo">Seguridad <i class="fa fa-lock" aria-hidden="true"></i></h2>
+					<img src="./img/datalandia-security-gif.gif" style="width: 70%" />
+				</section>
+
+				<section>
+					<h3 class="titulo">
+						<i class="fa fa-lock" aria-hidden="true"></i> HTTPS
+					</h3>
+					<ul>
+						<li>Ninguna API debe trabajar sobre HTTP</li>
+						<li>Información sensible</li>
+						<li>Elección estructural del sistema:</li>
+						<ul>
+							<li>SSL/TLS</li>
+							<li>Virtual Private Network</li>
+						</ul>
+					</ul>
+					<p class="minitexto">Para servicios web privilegiados, usad certificados en ambos extremos.</p>
+				</section>
+
+				<section>
+					<h3 class="titulo">
+						<i class="fa fa-lock" aria-hidden="true"></i> Control de acceso
+					</h3>
+					<ul>
+						<li><p>Servicios monolíticos</p></li>
+						<ul>
+							<li>Identificación de usuario</li>
+							<li>Gestión de sesiones</li>
+						</ul>
+						<li><p>Arquitectura de microservicios</p></li>
+						<ul>
+							<li>Decisión de cada API</li>
+							<li>Autenticación en cada punto</li>
+						</ul>
+					</ul>
+					<p><a href="">El segundo caso es muy lento...</a></p>
+				</section>
+
+				<section>
+					<h4 class="titulo">Identity Provider + API Gateway</h4>
+					<img src="./img/microservices-microsoft.png" style="width: 80%"/>
+				</section>
+
+				<section>
+					<h4 class="titulo">¿Cómo trabajar con un Identity Provider?</h4>
+					<p>Usaremos Auth0 de ejemplo.</p>
+					<ul>
+						<li>1. Obtener token de acceso a su API.</li>
+						<li>2. Hacer consulta a la API utilizando el token.</li>
+						<li>3. Extraer el token devuelto por el IdP.</li>
+					</ul>
+				</section>
+
+				<section>
+					<h5 class="titulo">1. Obtener token de acceso</h5>
+					<img src="./img/auth0-get-token.png" style="width: 80%" />
+				</section>
+
+				<section>
+					<h5 class="titulo">1. Obtener token de acceso</h5>
+					<img src="./img/auth0-token-got.png" style="width: 80%" />
+					<p class="minitexto">¡¡Los tokens son como los yogures!!</p>
+				</section>
+
+				<section>
+					<h5 class="titulo">2. Consultar a la API</h5>
+					<pre><code data-trim>
+						var request = require("request");
+
+						var options = {
+						  method: 'GET',
+						  url: 'https://adrianmorente.eu.auth0.com/api/v2/ADRIANMORENTE',
+						  headers: { authorization: 'Bearer 5a1221834e0a940a6a6783d1' }
+						};
+
+						request(options, function (error, response, body) {
+						  if (error) throw new Error(error);
+
+						  console.log(body);
+						});
+					</code></pre>
+				</section>
+
+				<section>
+					<h5 class="titulo">3. Recoger la respuesta del IdP</h5>
+					<pre><code data-trim>
+						{
+						  "email": "adrian.morente@cor.reo",
+						  "name": "Adrian Morente",
+						  "picture": "https://avatar/selfie.png",
+						  "gender": "male",
+						  "user_id": "ADRIANMORENTE",
+						  ...
+						}
+					</code></pre>
+				</section>
+
+				<section>
+					<h3 class="titulo">Otros aspectos a tener en cuenta:</h3>
+					<ul>
+						<li>Restringir los métodos HTTP usados por cada ruta.</li>
+						<li>Validar las entradas de texto y formularios.</li>
+						<li>Testear y manejar todos los errores posibles.</li>
+					</ul>
+				</section>
+
+				<section>
+					<h4 class="titulo">Para ampliar (microservicios):</h4>
 					<h4>
 						Tutoriales de NGINX:
 						<a href="https://www.nginx.com/blog/introduction-to-microservices/">
@@ -144,7 +259,13 @@
 				</section>
 
 				<section>
-					El contenido a desarrollar de las diapositivas está en <a href="../notas.md">notas.md</a>
+					<h4>Como curiosidad... ¡NETFLIX!</h4>
+					<h5>
+						<a href="https://www.slideshare.net/yunongx/paved-paas-to-microservices">
+							<i>Paved PaaS to Microservices</i>
+						</a>
+					</h5>
+					<h4>Caso de éxito sobre microservicios e interacción de estos.</h4>
 				</section>
 
 			</div>
