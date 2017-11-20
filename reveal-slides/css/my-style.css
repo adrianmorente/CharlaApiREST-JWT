@@ -1,7 +1,23 @@
+h1,h2,h3,h4,h5,h6 {
+  text-transform: none !important;
+}
+
+.titulo {
+  color: rgb(80, 240, 180) !important;
+}
+
 .concepto li {
   list-style-type: none !important;
 }
 
 li {
   list-style-type: square;
+}
+
+.minitexto {
+  font-size: 70% !important;
+}
+
+ul ul li {
+  list-style-type: circle;
 }
